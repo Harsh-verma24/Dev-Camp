@@ -5,7 +5,7 @@ const todoContainer = document.querySelector("#todo-container");
 
 function deleteTodo(key) {
   todos.splice(key, 1);
-  localStorage.setItem("todos", JSON.stringify(todos));
+  saveTodo();
   alert("Todo deleted successfully ✅");
   renderTodo();
 }
@@ -13,6 +13,7 @@ function deleteTodo(key) {
 function saveTodo() {
   localStorage.setItem("todos", JSON.stringify(todos));
 }
+
 function editTodo(key) {
   const oldTodo = todoContainer.children[key];
   const oldText = todos[key];
@@ -33,8 +34,7 @@ function editTodo(key) {
     if (newText) {
       todos[key] = newText;
       saveTodo();
-    alert("Todo Updated successfully successfully ✅");
-
+      alert("Todo Updated successfully ✅");
       renderTodo();
     }
   });
@@ -43,48 +43,43 @@ function editTodo(key) {
 function renderTodo() {
   todoContainer.innerHTML = "";
   todos.forEach((text, index) => {
-    const childTodo = document.createElement("span");
+    const childTodo = document.createElement("div");
+    const textNode = document.createElement("span");
     const btnDiv = document.createElement("div");
     const deleteBtn = document.createElement("button");
-    const EditBtn = document.createElement("button");
+    const editBtn = document.createElement("button");
 
-    deleteBtn.innerHTML = "Delete Todo";
-    EditBtn.innerHTML = "Edit Todo";
+    textNode.textContent = text;
+    deleteBtn.innerText = "Delete";
+    editBtn.innerText = "Edit";
 
-    childTodo.className = "todo-item";
-    childTodo.disabled;
-    childTodo.key = index;
-    EditBtn.addEventListener("click", () => editTodo(index));
+    editBtn.addEventListener("click", () => editTodo(index));
     deleteBtn.addEventListener("click", () => deleteTodo(index));
-    childTodo.textContent = text;
-    btnDiv.appendChild(EditBtn);
+
+    btnDiv.appendChild(editBtn);
     btnDiv.appendChild(deleteBtn);
+
+    childTodo.appendChild(textNode);
     childTodo.appendChild(btnDiv);
+
     todoContainer.appendChild(childTodo);
   });
 }
 
-// renderTodo()
-
 function submitHandler(e) {
   e.preventDefault();
-
   if (!todo.value.trim()) {
     alert("Please enter a To-do");
     return;
   }
-
   todos.push(todo.value.trim());
-
-  localStorage.setItem("todos", JSON.stringify(todos));
+  saveTodo();
   renderTodo();
   alert("Todo Created successfully ✅");
-
   console.log("Todo added:", todo.value);
   todo.value = "";
 }
 
 btn.addEventListener("click", submitHandler);
 
-renderTodo();
-
+document.addEventListener("DOMContentLoaded", renderTodo);
