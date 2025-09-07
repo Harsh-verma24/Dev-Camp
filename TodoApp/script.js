@@ -1,4 +1,7 @@
-const todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+
+document.addEventListener("DOMContentLoaded", ()=>{
+  const todos = JSON.parse(localStorage.getItem("todos")) || [];
 const todo = document.querySelector("#todo-content");
 const btn = document.querySelector("#submitBtn");
 const todoContainer = document.querySelector("#todo-container");
@@ -81,5 +84,5 @@ function submitHandler(e) {
 }
 
 btn.addEventListener("click", submitHandler);
-
-document.addEventListener("DOMContentLoaded", renderTodo);
+  
+});
