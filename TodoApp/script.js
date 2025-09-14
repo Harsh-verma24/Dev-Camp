@@ -64,8 +64,6 @@ function renderTodo() {
   });
 }
 
-// renderTodo()
-
 function submitHandler(e) {
   e.preventDefault();
 
