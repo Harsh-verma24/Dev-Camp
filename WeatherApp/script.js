@@ -1,5 +1,5 @@
 const API_KEY = "86fa142e93aa42ff98e63240251409";
-const baseUrl = "http://api.weatherapi.com/v1";
+const baseUrl = "https://api.weatherapi.com/v1";
 
 document.getElementById("searchButton").addEventListener("click", () => {
   const cityName = document.getElementById("cityInput").value;
